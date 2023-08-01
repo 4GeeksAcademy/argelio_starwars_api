@@ -14,13 +14,13 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "email": self.email,
+            "name": self.name,
             # do not serialize the password, its a security breach
         }
 
 class People(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    name = db.Column(db.String(150), unique = True, nullable = False)
+    name = db.Column(db.String(150), unique = True, nullable = True)
     height = db.Column(db.String(150), unique = False, nullable = True)
     mass = db.Column(db.String(150), unique = False, nullable = True)
     hair_color = db.Column(db.String(150), unique = False, nullable = True)
@@ -31,7 +31,7 @@ class People(db.Model):
     homeworld = db.Column(db.String(150), unique = False, nullable = True)
 
     def __repr__(self):
-        return '<People %r' % self.name
+        return '<People %r>' % self.name
     
     def serialize(self):
         return {
@@ -45,4 +45,27 @@ class People(db.Model):
             "birth_year": self.birth_year,
             "gender": self.gender,
             "homeworld": self.homeworld
+        }
+
+class Planet(db.Model):
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    name = db.Column(db.String(100), unique = False, nullable = False)
+    rotation_period = db.Column(db.String(100), unique = False, nullable = True)
+    orbital_period = db.Column(db.String(100), unique = False, nullable = True)
+    diameter = db.Column(db.String(100), unique = False, nullable = True)
+    climate = db.Column(db.String(100), unique = False, nullable = True)
+    gravity = db.Column(db.String(100), unique = False, nullable = True)
+
+    def __repr__(self):
+        return '<Planet %r>' % self.name
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "rotation_period": self.rotation_period,
+            "orbital_period": self.orbital_period,
+            "diameter": self.diameter,
+            "climate": self.climate,
+            "gravity": self.gravity
         }
